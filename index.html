@@ -25,8 +25,8 @@
       </a-entity>
     </a-marker>
 
-    <!-- Камера для отслеживания маркера с возможностью зума -->
-    <a-entity camera universal-controls="movementEnabled: false; rotationEnabled: false; zoomEnabled: true;"></a-entity>
+    <!-- Камера для отслеживания маркера с WASD-контролем и зумом -->
+    <a-entity camera wasd-controls look-controls="enabled: false;"></a-entity>
 
     <!-- Добавленный текст -->
     <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>

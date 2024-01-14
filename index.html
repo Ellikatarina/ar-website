@@ -15,8 +15,8 @@
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
     <!-- Маркер -->
     <a-marker preset="custom" type="pattern" url="trigger1.patt">
-      <!-- Дефолтный куб, который будет отображаться -->
-      <a-box position="0 0.5 0" material="color: red;"></a-box>
+      <!-- 3D-модель в формате GLB -->
+      <a-entity gltf-model="url(model1.glb)" scale="0.1 0.1 0.1"></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->

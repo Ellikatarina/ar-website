@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Подключение A-Frame -->
+  <!-- Подключение A-Frame и AR.js через CDN -->
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <!-- Подключение AR.js -->
-  <script src="ar.js"></script>
+  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
   <style>
     body { margin: 0; overflow: hidden; }
     #scene { height: 100vh; }
@@ -22,6 +21,9 @@
 
     <!-- Камера для отслеживания маркера -->
     <a-entity camera></a-entity>
+
+    <!-- Добавленный текст -->
+    <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>
   </a-scene>
 </body>
 </html>

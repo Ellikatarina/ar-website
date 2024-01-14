@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Your AR App</title>
 
-  <!-- Подключение A-Frame, AR.js и библиотеки motion-capture-components через CDN -->
+  <!-- Подключение A-Frame, AR.js и библиотеки gesture-detector через CDN -->
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-  <script src="https://unpkg.com/aframe-motion-capture-components@2.3.0/dist/aframe-motion-capture-components.min.js"></script>
+  <script src="https://unpkg.com/aframe-gesture-detector@2.0.0/dist/aframe-gesture-detector.min.js"></script>
 
   <style>
     body { margin: 0; overflow: hidden; }
@@ -27,7 +27,7 @@
     </a-marker>
 
     <!-- Камера для отслеживания маркера с поддержкой жестов и зума -->
-    <a-entity camera motion-capture-avatar="hand: left" universal-controls="movementEnabled: false; rotationEnabled: false; zoomEnabled: true;"></a-entity>
+    <a-entity camera gesture-detector universal-controls="movementEnabled: false; rotationEnabled: false; zoomEnabled: true;"></a-entity>
 
     <!-- Добавленный текст -->
     <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>

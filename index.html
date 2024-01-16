@@ -16,7 +16,9 @@
     <!-- Маркер -->
     <a-marker preset="custom" type="pattern" url="trigger1.patt">
       <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity id="animatedModel" gltf-model="#model1" scale="0.1 0.1 0.1"></a-entity>
+      <a-entity id="animatedModelContainer" scale="0.1 0.1 0.1">
+        <a-entity gltf-model="#model1" animation-mixer="clip: имя_вашей_анимации; loop: repeat;"></a-entity>
+      </a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
@@ -37,16 +39,18 @@
           var el = this.el;
           el.addEventListener('markerFound', function () {
             console.log('Marker found, playing animation.');
-            var mixer = new THREE.AnimationMixer(el.getObject3D('animatedModel'));
-            el.getObject3D('animatedModel').animations.forEach(function (animation) {
+            var animatedModelContainer = document.getElementById('animatedModelContainer');
+            var mixer = new THREE.AnimationMixer(animatedModelContainer.object3D.children[0]);
+            animatedModelContainer.object3D.children[0].animations.forEach(function (animation) {
               console.log('Playing animation:', animation.name);
               mixer.clipAction(animation).play();
             });
           });
           el.addEventListener('markerLost', function () {
             console.log('Marker lost, stopping animation.');
-            var mixer = new THREE.AnimationMixer(el.getObject3D('animatedModel'));
-            el.getObject3D('animatedModel').animations.forEach(function (animation) {
+            var animatedModelContainer = document.getElementById('animatedModelContainer');
+            var mixer = new THREE.AnimationMixer(animatedModelContainer.object3D.children[0]);
+            animatedModelContainer.object3D.children[0].animations.forEach(function (animation) {
               console.log('Stopping animation:', animation.name);
               mixer.clipAction(animation).stop();
             });

@@ -16,8 +16,7 @@
     <!-- Маркер -->
     <a-marker preset="custom" type="pattern" url="trigger1.patt">
       <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity gltf-model="url(model1.glb)" scale="0.1 0.1 0.1" animation-mixer="clip: ArmatureAction; loop: repeat;" 
-                events-loaded="start: yourAnimation;"></a-entity>
+      <a-entity id="animatedModel" scale="0.1 0.1 0.1" animation-mixer="clip: ArmatureAction; loop: repeat;"></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
@@ -25,6 +24,19 @@
 
     <!-- Добавленный текст -->
     <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>
+
+    <!-- Загрузка 3D-модели -->
+    <a-assets>
+      <a-asset-item id="model1" src="model1.glb" response-type="arraybuffer" onload="onModelLoaded"></a-asset-item>
+    </a-assets>
+
+    <!-- Скрипт для начала анимации после загрузки модели -->
+    <script>
+      function onModelLoaded() {
+        var model = document.getElementById('animatedModel');
+        model.setAttribute('gltf-model', '#model1');
+      }
+    </script>
   </a-scene>
 </body>
 </html>

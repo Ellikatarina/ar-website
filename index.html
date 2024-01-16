@@ -25,6 +25,22 @@
     <a-assets>
       <a-asset-item id="model1" src="model1.glb"></a-asset-item>
     </a-assets>
+
+    <!-- Скрипт для обработки событий анимации -->
+    <script>
+      AFRAME.registerComponent('animation-handler', {
+        init: function () {
+          this.el.addEventListener('animation-start', this.onStart.bind(this));
+          this.el.addEventListener('animation-complete', this.onComplete.bind(this));
+        },
+        onStart: function (event) {
+          console.log('Анимация начата', event.detail);
+        },
+        onComplete: function (event) {
+          console.log('Анимация завершена', event.detail);
+        }
+      });
+    </script>
   </a-scene>
 </body>
 </html>

@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- Подключение последних версий A-Frame и AR.js через CDN -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
+  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar-nft.js"></script>
   <style>
     body { margin: 0; overflow: hidden; }
     #scene { height: 100vh; }
   </style>
 </head>
 <body>
-  <a-scene embedded arjs="sourceType: webcam;">
-    <!-- Маркер -->
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <!-- Маркер и модель -->
     <a-marker type="pattern" url="trigger1.patt">
-      <!-- 3D-модель в формате GLB -->
-      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1"></a-entity>
+      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true;"
+                animation__start="startEvent: animation-start" animation__complete="startEvent: animation-complete"
+                animation-handler></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
@@ -26,6 +27,22 @@
     <a-assets>
       <a-asset-item id="model1" src="model1.glb"></a-asset-item>
     </a-assets>
+
+    <!-- Скрипт для обработки событий анимации -->
+    <script>
+      AFRAME.registerComponent('animation-handler', {
+        init: function () {
+          this.el.addEventListener('animation-start', this.onStart.bind(this));
+          this.el.addEventListener('animation-complete', this.onComplete.bind(this));
+        },
+        onStart: function (event) {
+          console.log('Анимация начата', event.detail);
+        },
+        onComplete: function (event) {
+          console.log('Анимация завершена', event.detail);
+        }
+      });
+    </script>
   </a-scene>
 </body>
 </html>

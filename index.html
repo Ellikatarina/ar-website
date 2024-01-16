@@ -13,37 +13,24 @@
 </head>
 <body>
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-    <!-- Маркер и модель -->
-    <a-marker type="pattern" url="trigger1.patt">
-      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1" animation="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true;"
-                animation__start="start: animation-start" animation__complete="start: animation-complete"
-                animation-handler></a-entity>
+    <!-- Маркер -->
+    <a-marker preset="custom" type="pattern" url="trigger1.patt">
+      <!-- 3D-модель в формате GLB с анимацией -->
+      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1">
+        <a-animation attribute="rotation" to="0 360 0" dur="10000" easing="linear" repeat="indefinite"></a-animation>
+      </a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
     <a-entity camera></a-entity>
 
+    <!-- Добавленный текст -->
+    <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>
+
     <!-- Загрузка 3D-модели -->
     <a-assets>
       <a-asset-item id="model1" src="model1.glb"></a-asset-item>
     </a-assets>
-
-    <!-- Скрипт для обработки событий анимации -->
-    <script>
-      AFRAME.registerComponent('animation-handler', {
-        init: function () {
-          console.log('Инициализация animation-handler');
-          this.el.addEventListener('animationstart', this.onStart.bind(this));
-          this.el.addEventListener('animationcomplete', this.onComplete.bind(this));
-        },
-        onStart: function (event) {
-          console.log('Анимация начата', event);
-        },
-        onComplete: function (event) {
-          console.log('Анимация завершена', event);
-        }
-      });
-    </script>
   </a-scene>
 </body>
 </html>

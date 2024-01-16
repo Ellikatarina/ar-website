@@ -5,51 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- Подключение последних версий A-Frame и AR.js через CDN -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar-nft.js"></script>
+  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.js"></script>
   <style>
     body { margin: 0; overflow: hidden; }
     #scene { height: 100vh; }
   </style>
 </head>
 <body>
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" 
-             markerfound="onMarkerFound" markerlost="onMarkerLost">
+  <a-scene embedded arjs="sourceType: webcam;">
     <!-- Маркер -->
-    <a-marker preset="custom" type="pattern" url="trigger1.patt">
-      <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity id="animatedModelContainer" scale="0.1 0.1 0.1">
-        <a-entity gltf-model="#model1" animation-mixer="clip: имя_вашей_анимации; loop: repeat;"></a-entity>
-      </a-entity>
+    <a-marker type="pattern" url="trigger1.patt">
+      <!-- 3D-модель в формате GLB -->
+      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1"></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
     <a-entity camera></a-entity>
 
-    <!-- Добавленный текст -->
-    <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>
-
     <!-- Загрузка 3D-модели -->
     <a-assets>
       <a-asset-item id="model1" src="model1.glb"></a-asset-item>
     </a-assets>
-
-    <!-- Скрипт для управления анимацией -->
-    <script>
-      AFRAME.registerComponent('animate-on-marker', {
-        init: function () {
-          var el = this.el;
-          el.sceneEl.addEventListener('markerFound', function () {
-            console.log('Marker found, playing animation.');
-          });
-          el.sceneEl.addEventListener('markerLost', function () {
-            console.log('Marker lost, stopping animation.');
-          });
-        }
-      });
-    </script>
-
-    <!-- Компонент для управления анимацией -->
-    <a-entity animate-on-marker></a-entity>
   </a-scene>
 </body>
 </html>

@@ -12,7 +12,8 @@
   </style>
 </head>
 <body>
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;" 
+             markerfound="onMarkerFound" markerlost="onMarkerLost">
     <!-- Маркер -->
     <a-marker preset="custom" type="pattern" url="trigger1.patt">
       <!-- 3D-модель в формате GLB с анимацией -->
@@ -37,10 +38,10 @@
       AFRAME.registerComponent('animate-on-marker', {
         init: function () {
           var el = this.el;
-          el.addEventListener('markerFound', function () {
+          el.sceneEl.addEventListener('markerFound', function () {
             console.log('Marker found, playing animation.');
           });
-          el.addEventListener('markerLost', function () {
+          el.sceneEl.addEventListener('markerLost', function () {
             console.log('Marker lost, stopping animation.');
           });
         }

@@ -16,9 +16,7 @@
     <!-- Маркер -->
     <a-marker preset="custom" type="pattern" url="trigger1.patt">
       <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1">
-        <a-animation attribute="rotation" to="0 360 0" dur="10000" easing="linear" repeat="indefinite"></a-animation>
-      </a-entity>
+      <a-entity id="animatedModel" gltf-model="#model1" scale="0.1 0.1 0.1"></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
@@ -31,6 +29,30 @@
     <a-assets>
       <a-asset-item id="model1" src="model1.glb"></a-asset-item>
     </a-assets>
+
+    <!-- Скрипт для управления анимацией -->
+    <script>
+      AFRAME.registerComponent('animate-on-marker', {
+        init: function () {
+          var el = this.el;
+          el.addEventListener('markerFound', function () {
+            el.getObject3D('animatedModel').animations.forEach(function (animation) {
+              var mixer = new THREE.AnimationMixer(el.getObject3D('animatedModel'));
+              mixer.clipAction(animation).play();
+            });
+          });
+          el.addEventListener('markerLost', function () {
+            el.getObject3D('animatedModel').animations.forEach(function (animation) {
+              var mixer = new THREE.AnimationMixer(el.getObject3D('animatedModel'));
+              mixer.clipAction(animation).stop();
+            });
+          });
+        }
+      });
+    </script>
+
+    <!-- Компонент для управления анимацией -->
+    <a-entity animate-on-marker></a-entity>
   </a-scene>
 </body>
 </html>

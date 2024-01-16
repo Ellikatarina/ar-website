@@ -16,7 +16,7 @@
     <!-- Маркер -->
     <a-marker preset="custom" type="pattern" url="trigger1.patt">
       <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity gltf-model="url(model1.glb)" scale="0.1 0.1 0.1" animation-mixer="clip: *; loop: repeat;" 
+      <a-entity gltf-model="url(model1.glb)" scale="0.1 0.1 0.1" animation-mixer="clip: ArmatureAction; loop: repeat;" 
                 events-loaded="start: yourAnimation;"></a-entity>
     </a-marker>
 

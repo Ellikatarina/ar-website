@@ -19,10 +19,9 @@
       <a-entity
         gltf-model="#model1"
         scale="0.1 0.1 0.1"
-        animation-mixer="clip: ArmatureAction; loop: repeat;"
-        animation__start="startEvent: animation-start"
-        animation__complete="startEvent: animation-complete"
-        animation-handler></a-entity>
+        animation-mixer
+        animation__start="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 1000; startEvents: animation-start"
+        animation__complete="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true; startEvents: animation-complete"></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
@@ -33,21 +32,8 @@
       <a-asset-item id="model1" src="model1.glb"></a-asset-item>
     </a-assets>
 
-    <!-- Скрипт для обработки событий анимации -->
-    <script>
-      AFRAME.registerComponent('animation-handler', {
-        init: function () {
-          this.el.addEventListener('animation-start', this.onStart.bind(this));
-          this.el.addEventListener('animation-complete', this.onComplete.bind(this));
-        },
-        onStart: function (event) {
-          console.log('Анимация начата', event.detail);
-        },
-        onComplete: function (event) {
-          console.log('Анимация завершена', event.detail);
-        }
-      });
-    </script>
+    <a-animation attribute="visible" begin="animation-start" to="true"></a-animation>
+    <a-animation attribute="rotation" begin="animation-complete" to="0 360 0" dur="5000" easing="linear" repeat="indefinite"></a-animation>
   </a-scene>
 </body>
 </html>

@@ -16,7 +16,7 @@
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
     <!-- Маркер и модель -->
     <a-marker type="pattern" url="trigger1.patt">
-      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1" id="animatedModel"></a-entity>
+      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1" id="animatedModel" animation-mixer></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
@@ -46,9 +46,16 @@
             el.setObject3D('animatedModel', animatedModel);
 
             // Запуск анимации
-            animatedModel.mixer = new THREE.AnimationMixer(animatedModel);
-            var action = animatedModel.mixer.clipAction(animatedModel.animations.find(anim => anim.name === 'CubeAction'));
+            var mixer = new THREE.AnimationMixer(animatedModel);
+            var action = mixer.clipAction(animatedModel.animations.find(anim => anim.name === 'CubeAction'));
             action.play();
+
+            el.sceneEl.addEventListener('enter-vr', function () {
+              // При входе в режим VR, нужно ручное обновление анимации
+              el.sceneEl.renderer.setAnimationLoop(function (timeDelta) {
+                mixer.update(timeDelta / 1000); // Передача времени в секундах
+              });
+            });
           });
         }
       });

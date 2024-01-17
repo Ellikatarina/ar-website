@@ -13,10 +13,9 @@
 </head>
 <body>
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-    <!-- Маркер -->
-    <a-marker preset="custom" type="pattern" url="trigger1.patt">
-      <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1" animation-mixer="clip: CubeAction; loop: repeat; repetitions: 2;"></a-entity>
+    <!-- Маркер и модель -->
+    <a-marker type="pattern" url="trigger1.patt">
+      <a-entity gltf-model="#model1" scale="0.1 0.1 0.1" animation-mixer="clip: CubeAction;"></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
@@ -29,6 +28,22 @@
     <a-assets>
       <a-asset-item id="model1" src="model1.glb"></a-asset-item>
     </a-assets>
+
+    <!-- Скрипт для обработки событий обнаружения маркера -->
+    <script>
+      AFRAME.registerComponent('marker-handler', {
+        init: function () {
+          var marker = this.el;
+
+          // Обработка события обнаружения маркера
+          marker.addEventListener('markerFound', function () {
+            // Запуск анимации при обнаружении маркера
+            var model = marker.querySelector('[gltf-model]');
+            model.emit('animation-play');
+          });
+        }
+      });
+    </script>
   </a-scene>
 </body>
 </html>

@@ -16,24 +16,14 @@
     <!-- Маркер -->
     <a-marker preset="custom" type="pattern" url="trigger1.patt">
       <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity
-        gltf-model="#model1"
-        scale="0.1 0.1 0.1"
-        animation-mixer
-        animation__start="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; dur: 1000; startEvents: animation-start"
-        animation__complete="property: rotation; to: 0 360 0; dur: 5000; easing: linear; loop: true; startEvents: animation-complete"></a-entity>
+      <a-entity gltf-model="model1.glb" scale="0.1 0.1 0.1" animation-mixer></a-entity>
     </a-marker>
 
     <!-- Камера для отслеживания маркера -->
     <a-entity camera></a-entity>
 
-    <!-- Загрузка 3D-модели -->
-    <a-assets>
-      <a-asset-item id="model1" src="model1.glb"></a-asset-item>
-    </a-assets>
-
-    <a-animation attribute="visible" begin="animation-start" to="true"></a-animation>
-    <a-animation attribute="rotation" begin="animation-complete" to="0 360 0" dur="5000" easing="linear" repeat="indefinite"></a-animation>
+    <!-- Добавленный текст -->
+    <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>
   </a-scene>
 </body>
 </html>

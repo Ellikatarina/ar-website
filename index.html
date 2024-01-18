@@ -10,8 +10,7 @@
 </head>
 <body>
     <script type="module">
-        import * as THREE from './three.module.js';  // Переконайтеся, що шлях вірний
-        import { GLTFLoader } from './GLTFLoader.js';  // Переконайтеся, що шлях вірний
+        import * as THREE from './three.module.js';  // Додано "./"
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -19,7 +18,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        const loader = new GLTFLoader();
+        const loader = new THREE.GLTFLoader();  // Змінено на THREE.GLTFLoader()
         loader.load('model1.glb', (gltf) => {
             const model = gltf.scene;
             scene.add(model);

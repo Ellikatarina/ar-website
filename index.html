@@ -3,42 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model Viewer</title>
+    <title>Моя 3D модель</title>
     <style>
-        body { margin: 0; overflow: hidden; }
+        body { margin: 0; }
+        canvas { display: block; }
     </style>
 </head>
 <body>
     <script type="module">
-        import * as THREE from './three.module.js';  // Переконайтеся, що шлях вказаний вірно
+        import * as THREE from './three.module.js'; // Путь к three.module.js
+        import { GLTFLoader } from './GLTFLoader.js'; // Путь к GLTFLoader.js
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        const renderer = new THREE.WebGLRenderer();
+
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        import { GLTFLoader } from './GLTFLoader.js';  // Переконайтеся, що шлях вказаний вірно
-
         const loader = new GLTFLoader();
+        let model;
+
         loader.load('model1.glb', (gltf) => {
-            const model = gltf.scene;
+            model = gltf.scene;
             scene.add(model);
-            animate();
         });
 
         camera.position.z = 5;
 
-        function animate() {
+        const animate = () => {
             requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        }
 
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+            if (model) {
+                // Добавьте анимацию здесь, если требуется
+            }
+
+            renderer.render(scene, camera);
+        };
 
         animate();
     </script>

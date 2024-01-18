@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Подключение последних версий A-Frame и AR.js через CDN -->
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-  <script src="https://cdn.rawgit.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar-nft.js"></script>
-  <style>
-    body { margin: 0; overflow: hidden; }
-    #scene { height: 100vh; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Animation</title>
+    <style>
+        body { margin: 0; }
+    </style>
 </head>
 <body>
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-    <!-- Маркер -->
-    <a-marker preset="custom" type="pattern" url="trigger1.patt">
-      <!-- 3D-модель в формате GLB с анимацией -->
-      <a-entity gltf-model="model1.glb" scale="0.1 0.1 0.1" animation-mixer></a-entity>
-    </a-marker>
+    <script type="module">
+        import * as THREE from 'https://unpkg.com/three@110.0.1/build/three.module.js';
 
-    <!-- Камера для отслеживания маркера -->
-    <a-entity camera></a-entity>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-    <!-- Добавленный текст -->
-    <a-entity position="0 2 0" text="value: Hello, AR!; align: center;"></a-entity>
-  </a-scene>
+        const loader = new THREE.GLTFLoader();
+        loader.load('model1.glb', (gltf) => {
+            const model = gltf.scene;
+            scene.add(model);
+            animate();
+        });
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+    </script>
 </body>
 </html>

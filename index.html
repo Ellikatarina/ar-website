@@ -24,7 +24,7 @@
         const loader = new GLTFLoader();
         let model;
 
-        loader.load('model1.glb', (gltf) => {
+        loader.load('./model1.glb', (gltf) => {
             model = gltf.scene;
             scene.add(model);
         });

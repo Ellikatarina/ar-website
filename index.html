@@ -10,9 +10,10 @@
     </style>
 </head>
 <body>
-    <script src="./three.js"></script>
-    <script src="./GLTFLoader.js"></script>
-    <script>
+    <script type="module">
+        import * as THREE from 'https://threejs.org/build/three.module.js'; // Путь к three.module.js
+        import { GLTFLoader } from 'https://threejs.org/examples/jsm/loaders/GLTFLoader.js';
+
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
@@ -20,7 +21,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        const loader = new THREE.GLTFLoader();
+        const loader = new GLTFLoader();
         let model;
 
         loader.load('./model1.glb', (gltf) => {
